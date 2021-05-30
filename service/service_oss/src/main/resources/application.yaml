@@ -1,0 +1,21 @@
+server:
+  port: 8120
+
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-oss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI5tHXj8h96B5UtYe2JeMr
+    accessKeySecret: znGYkccq3jjOiEe66GIr1LSK51zGVd
+
+    bucket: coe-glfile

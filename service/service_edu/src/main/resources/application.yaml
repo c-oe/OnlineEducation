@@ -1,0 +1,63 @@
+server:
+  port: 8110  # 服务端口
+  tomcat:
+    threads:
+      max: 10
+
+spring:
+  profiles:
+    active: dev  # 环境设置
+  application:
+    name: service-edu  # 服务名
+  datasource:  # mysql数据库连接
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/coe_edu
+    username: root
+    password: 123456
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss   #返回json的全局时间格式
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        port: 8081 #跟控制台交流的端口，随意指定一个未使用的端口即可
+        dashboard: localhost:8080 # 指定控制台服务的地址
+  redis:
+    host: 192.168.80.128
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+#mybatis日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:com/learn/coe/service/edu/mapper/xml/*.xml
+
+# 设置日志级别
+#logging:
+#  level:
+#    root: INFO
+
+
+#service-oss:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+ribbon:
+  MaxAutoRetries: 0 # 同一实例最大重试次数，不包括首次调用，默认0
+  MaxAutoRetriesNextServer: 1 # 重试其他实例的最大重试次数，不包括首次所选的server，默认1
+  ConnectTimeout: 10000 #连接建立的超时时长，默认1秒
+  ReadTimeout: 10000 #处理请求的超时时间，默认为1秒
+
+feign:
+  sentinel:
+    enabled: true
